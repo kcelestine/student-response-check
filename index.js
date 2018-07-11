@@ -3,35 +3,35 @@ exports.handler = (event, context, callback) => {
     let inputUnits = event.inputUnits;
     let targetUnits = event.targetUnits;
     let studentResponse = event.studentResponse;
-    //let str =  "Temp: " + inputTemp + " Units: " + inputUnits + " Units: " + targetUnits + " Response: " + studentResponse;
-    let celcius = FarenheitToCelcius (100);
-    let kelvin = CelciusToKelvin (100);
-    let rankine = KelvinToRankine (100);
-    let farenheit = RankineToFarenheit (100);
-    let str =  "celcius: " + celcius + " kelvin: " + kelvin + " rankine: " + rankine + " farenheit: " + farenheit;
+    
     callback(null, str);
 };
 
 function studentResponseCheck(inputTemp, inputUnits, targetUnits, studentResponse){
     let correctResponse = convert(inputTemp, inputUnits, targetUnits);
-    return correctResponse === studentResponse;
+    if (correctResponse == false)
+	return "invalid"
+    if (Math.round(correctResponse) == Math.round(studentResponse))
+        return "correct"
+    else
+	return "incorrect"
 }
 
 function convert(inputTemp, inputUnits, targetUnits) {
   if (inputUnits === "F" && targetUnits === "R")
-    return KelvinToRankine(CelciusToKelvin(FarenheitToCelcius(temp)));
+    return KelvinToRankine(CelciusToKelvin(FarenheitToCelcius(inputTemp)));
   if (inputUnits === "C" && targetUnits === "K")
-    return CelciusToKelvin(temp);
+    return CelciusToKelvin(inputTemp);
   if (inputUnits === "K" && targetUnits === "F")
-    return RankineToFarenheit(KelvinToRankine(temp));
+    return RankineToFarenheit(KelvinToRankine(inputTemp));
   if (inputUnits === "R" && targetUnits === "C")
-     return FarenheitToCelcius(RankineToFarenheit(temp));
+     return FarenheitToCelcius(RankineToFarenheit(inputTemp));
   return false;
 }
 
 function FarenheitToCelcius (temp) {
 	// MyLambdaFunction logic here
-   return (temp - 32) / (9/5);
+   return (temp - 32) / 1.8;
 }
 
 function CelciusToKelvin (temp) {
@@ -41,10 +41,24 @@ function CelciusToKelvin (temp) {
 
 function KelvinToRankine (temp) {
 	// MyLambdaFunction logic here
-   return temp * (9/5) ;
+   return temp * 1.8;
 }
 
 function RankineToFarenheit (temp) {
 	// MyLambdaFunction logic here
-   return temp - 459.67 ;
+   return temp - 459.67;
 }
+console.log(studentResponseCheck(84.2, "F", "R", 543.5));
+console.log(studentResponseCheck(-45.14, "C", "K", 227.51));
+console.log(studentResponseCheck(317.33, "K", "F", 110.5));
+console.log(studentResponseCheck(444.5, "R", "C", -30.9));
+console.log(studentResponseCheck(6.5, "F", "R", "dog"));
+console.log(studentResponseCheck("dog", "", "C", 45.32));
+
+console.log(convert(84.2, "F", "R"));
+console.log(convert(-45.14, "C", "K"));
+console.log(convert(317.33, "K", "F"));
+console.log(convert(444.5, "R", "C"));
+console.log(convert(6.5, "F", "R"));
+console.log(convert("dog", "", "C"));
+
