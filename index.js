@@ -4,7 +4,8 @@ exports.handler = (event, context, callback) => {
     let targetUnits = event.targetUnits;
     let studentResponse = event.studentResponse;
     
-    callback(null, str);
+    check = studentResponseCheck(inputTemp, inputUnits, targetUnits, studentResponse);
+    callback(null, check);
 };
 
 function studentResponseCheck(inputTemp, inputUnits, targetUnits, studentResponse){
