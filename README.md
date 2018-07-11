@@ -6,7 +6,7 @@
 * Git
 
 # 1. Setup
-### Create IAM Role
+### Create IAM User
 1. Navigate to Security, Identity & Compliance --> IAM
 1. Navigate to Users --> Add User
 1. Fill-in the following:
@@ -18,7 +18,7 @@
 1. Click "Next: Review"
 1. Click "Create User" 
 
-### Create A User
+### Create Credentials
 1. On your aws management console, navigate to Users
 2. Select the user you just created
 3. Select the "Security Credentials" tab
