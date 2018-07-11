@@ -48,17 +48,3 @@ function RankineToFarenheit (temp) {
 	// MyLambdaFunction logic here
    return temp - 459.67;
 }
-console.log(studentResponseCheck(84.2, "F", "R", 543.5));
-console.log(studentResponseCheck(-45.14, "C", "K", 227.51));
-console.log(studentResponseCheck(317.33, "K", "F", 110.5));
-console.log(studentResponseCheck(444.5, "R", "C", -30.9));
-console.log(studentResponseCheck(6.5, "F", "R", "dog"));
-console.log(studentResponseCheck("dog", "", "C", 45.32));
-
-console.log(convert(84.2, "F", "R"));
-console.log(convert(-45.14, "C", "K"));
-console.log(convert(317.33, "K", "F"));
-console.log(convert(444.5, "R", "C"));
-console.log(convert(6.5, "F", "R"));
-console.log(convert("dog", "", "C"));
-
