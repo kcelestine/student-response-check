@@ -12,6 +12,22 @@ exports.handler = (event, context, callback) => {
     callback(null, str);
 };
 
+function studentResponseCheck(inputTemp, inputUnits, targetUnits, studentResponse){
+    let correctResponse = convert(inputTemp, inputUnits, targetUnits);
+    return correctResponse === studentResponse;
+}
+
+function convert(inputTemp, inputUnits, targetUnits) {
+  if (inputUnits === "F" && targetUnits === "R")
+    return KelvinToRankine(CelciusToKelvin(FarenheitToCelcius(temp)));
+  if (inputUnits === "C" && targetUnits === "K")
+    return CelciusToKelvin(temp);
+  if (inputUnits === "K" && targetUnits === "F")
+    return RankineToFarenheit(KelvinToRankine(temp));
+  if (inputUnits === "R" && targetUnits === "C")
+     return FarenheitToCelcius(RankineToFarenheit(temp));
+  return false;
+}
 
 function FarenheitToCelcius (temp) {
 	// MyLambdaFunction logic here
@@ -31,50 +47,4 @@ function KelvinToRankine (temp) {
 function RankineToFarenheit (temp) {
 	// MyLambdaFunction logic here
    return temp - 459.67 ;
-}
-
-function studentResponseCheck(inputTemp, inputUnits, targetUnits, studentResponse){
-    let correctResponse = convert(inputTemp, inputUnits, targetUnits);
-    return correctResponse === studentResponse;
-}
-
-function FR(temp){
-  return KelvinToRankine(CelciusToKelvin(FarenheitToCelcius(temp)));    
-}
-
-function CK(temp){
-  return CelciusToKelvin(temp);
-}
-
-function KF(temp){
-    return RankineToFarenheit(KelvinToRankine(temp));
-}
-
-function RC(temp){
-    return FarenheitToCelcius(RankineToFarenheit(temp));
-}
-
-function convert(inputTemp, inputUnits, targetUnits){
-    let conversionFunctions = {
-        "F": FarenheitToCelcius, 
-        "C": CelciusToKelvin, 
-        "K": KelvinToRankine, 
-        "R": RankineToFarenheit};
-        
-    let indices = ["F", "C", "K", "R"];
-    let first = indices.indexOf(inputUnits);
-    let last = indices.indexOf(targetUnits);
-    
-    let conversionFunctionsToRun = [];
-    for (let i=first; i <last; i++){
-        let index = indices[i];
-        let func = conversionFunctions[index];
-        conversionFunctionsToRun.push(func);
-    }
-    
-    conversionFunctionsToRun.forEach(function(item){
-        console.log(item);
-    })
-    
-    return 0;
 }
